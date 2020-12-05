@@ -8,9 +8,7 @@ export function runForceGraph(
     nodesData,
     nodeHoverTooltip
 ) {
-    console.log(linksData)
     const links = linksData.map((d) => Object.assign({}, d));
-    console.log(nodesData)
     const nodes = nodesData.map((d) => Object.assign({}, d));
 
     const containerRect = container.getBoundingClientRect();

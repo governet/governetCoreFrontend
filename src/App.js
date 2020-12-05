@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import CandidateList from './components/candidateList';
 import ContributionList from './components/contributionList';
 import CommitteeList from './components/committeeList';
-import data from './data/data.json';
-import { ForceGraph } from "./components/graphs/forceGraph";
-import './style/App.css';
+import ForceGraphWrapper from "./components/forceGraphWrapper";
+import ErrorBoundary from "./components/errorBoundry";
 import { serverAddress } from './constants';
+import './style/App.css';
 
 class App extends Component {
 
@@ -50,25 +50,22 @@ class App extends Component {
 
     render() {
         return (
-            <div className="homepage--columns">
-                <div className="homepage--itemlist">
-                    <ContributionList contributions={this.state.contributions.slice(0,100)} />
-                </div>
-                <div className="homepage--itemlist">
-                    <CandidateList candidates={this.state.candidates.slice(0,100)} />
-                </div>
-                <div className="homepage--itemlist">
-                    <CommitteeList committees={this.state.committees.slice(0,100)} />
-                </div>
-                <div className="homepage--itemlist">
-                    <header className="App-header">
-                        Force Graph Example 2
-                    </header>
-                    <section>
-                        <ForceGraph linksData={this.state.network.links} nodesData={this.state.network.nodes} nodeHoverTooltip="LAME!" />
-                    </section>
-                </div>
-            </div>
+          <div>
+              <div className="homepage--columns">
+                  <div className="homepage--itemlist">
+                      <ContributionList contributions={this.state.contributions.slice(0,100)} />
+                  </div>
+                  <div className="homepage--itemlist">
+                      <CandidateList candidates={this.state.candidates.slice(0,100)} />
+                  </div>
+                  <div className="homepage--itemlist">
+                      <CommitteeList committees={this.state.committees.slice(0,100)} />
+                  </div>
+              </div>
+              <div className="homepage--itemlist">
+                  <ForceGraphWrapper network={this.state.network}/>
+              </div>
+          </div>
         )
       }
   }
