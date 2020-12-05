@@ -1,46 +1,57 @@
 import React, { Component } from 'react';
-import ContributionList from './components/contributionList';
 import CandidateList from './components/candidateList';
+import ContributionList from './components/contributionList';
 import CommitteeList from './components/committeeList';
-import ContributionTimeline from './components/graphs/barGraph';
-
+import data from './data/data.json';
+import { ForceGraph } from "./components/graphs/forceGraph";
 import './style/App.css';
+import { serverAddress } from './constants';
 
 class App extends Component {
 
     state = {
       candidates: [],
       committees: [],
-      contributions: []
+      contributions: [],
+      network: [],
+      networkLoaded: false
     }
 
     componentDidMount() {
-      fetch('http://127.0.0.1:8080/candidates')
+      fetch(serverAddress + 'candidates')
       .then(res => res.json())
       .then((data) => {
         this.setState({ candidates: data })
       })
       .catch(console.log)
 
-      fetch ('http://127.0.0.1:8080/committees')
+      fetch (serverAddress + 'committees')
       .then(res => res.json())
       .then((data) => {
         this.setState({ committees: data })
       })
       .catch(console.log)
 
-      fetch ('http://127.0.0.1:8080/contributions')
+      fetch (serverAddress + 'contributions')
       .then(res => res.json())
       .then((data) => {
         this.setState({ contributions: data })
       })
+      .catch(console.log)
+
+      fetch (serverAddress + 'network')
+      .then(res => res.json())
+      .then((data) => {
+        this.setState({ network: data})
+      })
+      .then(this.setState({networkLoaded: true}))
       .catch(console.log)
     }
 
     render() {
         return (
             <div className="homepage--columns">
-            <div className="homepage--itemlist">
+                <div className="homepage--itemlist">
                     <ContributionList contributions={this.state.contributions.slice(0,100)} />
                 </div>
                 <div className="homepage--itemlist">
@@ -48,6 +59,14 @@ class App extends Component {
                 </div>
                 <div className="homepage--itemlist">
                     <CommitteeList committees={this.state.committees.slice(0,100)} />
+                </div>
+                <div className="homepage--itemlist">
+                    <header className="App-header">
+                        Force Graph Example 2
+                    </header>
+                    <section>
+                        <ForceGraph linksData={this.state.network.links} nodesData={this.state.network.nodes} nodeHoverTooltip="LAME!" />
+                    </section>
                 </div>
             </div>
         )
