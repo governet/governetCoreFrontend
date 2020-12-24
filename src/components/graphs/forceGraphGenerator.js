@@ -1,6 +1,7 @@
 import * as d3 from "d3";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import styles from "./forceGraph.module.css";
+import * as constants from "../../graphConstants.js";
 
 export function runForceGraph(
     container,
@@ -17,30 +18,54 @@ export function runForceGraph(
 
     const color = () => { return "#E0E1DD"; };
 
-    const republicanIconKey = "\uf75e";
-    const democratIconKey = "\uf747";
-    const otherPartyIconKey = "\uf059";
-
     const icon = (d) => {
-        switch(d.party) {
-            case "DEM":
-                return democratIconKey;
-            case "REP":
-                return republicanIconKey;
+        var nodeIcon;
+        switch(d.type) {
+            case "CANDIDATE":
+                switch(d.party) {
+                    case "DEM":
+                        nodeIcon = constants.democratIconKey;
+                        break;
+                    case "REP":
+                        nodeIcon = constants.republicanIconKey;
+                        break;
+                    default:
+                        nodeIcon = constants.otherPartyIconKey;
+                        break;
+                }
+                return nodeIcon;
+            case "COMMITTEE":
+                return constants.committeeIconKey;
+            case "CONTRIBUTION":
+                return constants.contributionIconKey;
             default:
-                return otherPartyIconKey;
-            }
+                return constants.committeeIconKey;
+        }
     }
 
     const getClass = (d) => {
-        switch(d.party) {
-            case "DEM":
-                return styles.democrat;
-            case "REP":
-                return styles.republican;
+        var nodeClass;
+        switch(d.type) {
+            case "CANDIDATE":
+                switch(d.party) {
+                    case "DEM":
+                        nodeClass = styles.democrat;
+                        break;
+                    case "REP":
+                        nodeClass = styles.republican;
+                        break;
+                    default:
+                        nodeClass = styles.otherParty;
+                        break;
+                }
+                return nodeClass;
+            case "COMMITTEE":
+                return styles.committee;
+            case "CONTRIBUTION":
+                return styles.contribution;
             default:
-                return styles.otherParty;
-            }
+                return styles.genericNode
+        }
     };
 
     const drag = (simulation) => {
@@ -86,8 +111,8 @@ export function runForceGraph(
             .style("opacity", 0.9);
         div
             .html(hoverTooltip(d))
-            .style("left", `${x}px`)
-            .style("top", `${y - 28}px`);
+            .style("left", `2px`)
+            .style("top", `2px`);
     };
 
     const removeTooltip = () => {
@@ -100,7 +125,7 @@ export function runForceGraph(
     const simulation = d3
         .forceSimulation(nodes)
         .force("link", d3.forceLink(links).id(d => d.id))
-        .force("charge", d3.forceManyBody().strength(-150))
+        .force("charge", d3.forceManyBody().strength(-500))
         .force("x", d3.forceX())
         .force("y", d3.forceY());
 

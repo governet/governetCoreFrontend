@@ -4,7 +4,6 @@ import styles from "./forceGraph.module.css";
 
 export function ForceGraph({ linksData, nodesData, nodeHoverTooltip }) {
     const containerRef = React.useRef(null);
-    console.log(linksData, nodesData)
         React.useEffect(() => {
             let destroyFn;
                 if (containerRef.current) {

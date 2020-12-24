@@ -10,7 +10,11 @@ module.exports = {
   	// the output of the webpack build will be in /dist directory
     path: path.resolve(__dirname, 'dist'),
     // the filename of the JS bundle will be bundle.js
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -28,8 +32,12 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        test: /\.(sass|scss|css)$/,
+        use: ['style-loader','css-loader','sass-loader']
+      },
+      {
+        test: /\.(svg|eot|woff|woff2|ttf)$/,
+        use: ['file-loader']
       }
     ]
   },

@@ -11,21 +11,34 @@
 }
 
 .container svg {
-    display: flex;
+    display: block;
     width: 100%;
     height: 100%;
-}
-
-.democrat {
-    fill: rgb(255, 8, 3);
+    overflow: visible;
 }
 
 .republican {
+    fill: rgb(255, 8, 3);
+}
+
+.democrat {
     fill: rgb(0, 0, 255);
 }
 
 .otherparty {
     fill: rgb(0, 0, 255);
+}
+
+.committee {
+    fill: rgb(110, 152, 135);
+}
+
+.contribution {
+    fill: rgb(52, 73, 40);
+}
+
+.genericNode {
+    fill: rgb(211,211,211);
 }
 
 .node text {
@@ -35,8 +48,8 @@
 div.tooltip {   
     position: absolute;         
     text-align: center;         
-    width: 60px;                    
-    height: 28px;                   
+    width: auto;                    
+    height: auto;                   
     padding: 2px;               
     font: 12px sans-serif;      
     background: lightsteelblue; 

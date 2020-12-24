@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import CandidateList from './components/candidateList';
-import ContributionList from './components/contributionList';
-import CommitteeList from './components/committeeList';
-import ForceGraphWrapper from "./components/forceGraphWrapper";
-import ErrorBoundary from "./components/errorBoundry";
-import { serverAddress } from './constants';
-import './style/App.css';
-import {Router, Route} from 'react-router';
+
+import CandidateList from './candidateList';
+import ContributionList from './contributionList';
+import CommitteeList from './committeeList';
+import ForceGraphWrapper from "./forceGraphWrapper";
+import ErrorBoundary from "./errorBoundry";
+import { serverAddress } from '../constants';
+import '../style/App.css';
 
 class SummaryPage extends Component {
 

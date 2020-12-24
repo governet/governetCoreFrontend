@@ -17,7 +17,11 @@ const ForceGraphWrapper = ({ network }) => {
     <div>
         <section>
         	{network.nodes && 
-            <ForceGraph linksData={network.links} nodesData={network.nodes} nodeHoverTooltip={nodeHoverTooltip} />
+            <ForceGraph 
+              linksData={network.links} 
+              nodesData={network.nodes} 
+              nodeHoverTooltip={nodeHoverTooltip} 
+            />
         	}
         </section>
     </div>
